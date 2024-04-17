@@ -5,8 +5,8 @@ class BruteForce : public Matrix
 public:
 	vector<int> best_path;
 	double min_cost = INT_MAX;
-	vector<vector<int>> all_paths;
 
+	vector<vector<int>> all_paths;
 
 	void BFSolver(int start_point);
 	void generatePermutations(vector<int>& _cities, int start, vector<vector<int>>& _all_path);

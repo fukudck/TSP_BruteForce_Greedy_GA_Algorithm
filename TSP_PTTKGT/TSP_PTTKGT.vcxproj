@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BruteForce.h" />
+    <ClInclude Include="Genetic.h" />
     <ClInclude Include="Greedy.h" />
     <ClInclude Include="Matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BruteForce.cpp" />
+    <ClCompile Include="Genetic.cpp" />
     <ClCompile Include="Greedy.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.cpp" />

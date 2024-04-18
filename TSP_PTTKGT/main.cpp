@@ -6,21 +6,39 @@
 using namespace std;
 
 int main() {
-	ifstream file("input.txt");// Dataset file
+
+	Matrix tsp;
+
+	string filename = "fri26_d.txt";
+
+	ifstream file(filename);
 	if (!file.is_open()) {
 		cout << "File can't open" << endl;
 		return 0;
 	}
-	Matrix tsp;
 	tsp.importFromFile(file);
-	Genetic tsp1;
+	BruteForce tsp1;
+	Greedy tsp2;
+	Genetic tsp3;
 	
-	tsp1 = tsp;
+	tsp1 = tsp; tsp2 = tsp; tsp3 = tsp;
 	cout << "So thanh pho: " << tsp1.cities_num << endl;
-	tsp1.print();
-	tsp1.GASolver(0, 291);
-	
-	cout << endl << tsp1.min_cost;
+	//tsp.print();
+	if (tsp.cities_num < 10) {
+		tsp1.BFSolver(0);
+		cout << "Bruteforce: \nMin cost: " << tsp1.min_cost << endl;
+		tsp1.printPath();
+		tsp1.printTimeEx();
+	}
+	tsp2.GSolver(0);
+	cout << "Greedy: \nMin cost: " << tsp2.cost << endl;
+	tsp2.printPath();
+	tsp2.printTimeEx();
+
+	tsp3.GASolver(0, 937, false);
+	cout << "Genetic: \nMin cost: " << tsp3.min_cost << endl;
+	tsp3.printPath();
+	tsp3.printTimeEx();
 
 	//tsp1.BFSolver(0);
 	//cout << endl << tsp1.min_cost;
@@ -42,4 +60,5 @@ int main() {
 
 
 	file.close();
+	return 0;
 }

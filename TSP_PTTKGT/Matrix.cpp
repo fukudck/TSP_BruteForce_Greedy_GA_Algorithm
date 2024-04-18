@@ -14,6 +14,9 @@ void Matrix::importFromFile(ifstream& file)
 {
     string line;
     while (getline(file, line)) {
+        if (line.empty()) {
+            continue;
+        }
         vector<double> row;
         istringstream iss(line);
         double number;

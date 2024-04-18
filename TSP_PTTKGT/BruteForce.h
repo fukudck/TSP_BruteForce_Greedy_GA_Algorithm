@@ -21,5 +21,7 @@ public:
 
 	// For debugging
 	void printAllPaths();
+	void printPath();
+	
 };
 

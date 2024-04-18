@@ -19,7 +19,7 @@ public:
 	//To-Do
 	vector<vector<int>> population;
 
-	void GASolver(int start_point, int desired_cost);
+	void GASolver(int start_point, int desired_cost, bool loop);
 
 	vector<int> generateRandomPath(int start_point);
 
@@ -51,5 +51,6 @@ public:
 		return rate;
 	}
 	void removeDuplicated();
+	void printPath();
 };
 

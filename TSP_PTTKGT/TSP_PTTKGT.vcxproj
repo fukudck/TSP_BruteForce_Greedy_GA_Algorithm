@@ -144,7 +144,12 @@
     <ClCompile Include="Matrix.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="dantzig42_d.txt" />
+    <Text Include="five_d.txt" />
+    <Text Include="fri26_d.txt" />
+    <Text Include="gr17_d.txt" />
     <Text Include="input.txt" />
+    <Text Include="p01_d.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

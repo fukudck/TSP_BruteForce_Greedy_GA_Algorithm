@@ -5,6 +5,7 @@ using namespace std;
 
 void BruteForce::BFSolver(int start_point)
 {
+	clock_t begin = clock();
 	vector<int> cities;
 	for (int i = 0; i < matrix.size(); i++) {
 		if (i != start_point) {
@@ -21,8 +22,11 @@ void BruteForce::BFSolver(int start_point)
 	for (auto path : all_paths) {
 		if (calculateCost(path) < min_cost) {
 			min_cost = calculateCost(path);
+			best_path = path;
 		}
 	}
+	clock_t end = clock();
+	time = (float)(end - begin) / CLOCKS_PER_SEC;
 
 }
 
@@ -57,4 +61,13 @@ void BruteForce::printAllPaths()
 		}
 		cout << endl;
 	}
+}
+
+void BruteForce::printPath()
+{
+	cout << "Best path: ";
+	for (auto city : best_path) {
+		cout << city << " ";
+	}
+	cout << endl;
 }

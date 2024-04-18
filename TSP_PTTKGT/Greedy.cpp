@@ -3,6 +3,7 @@
 
 void Greedy::GSolver(int start_point)
 {
+	clock_t begin = clock();
 	visited.resize(matrix.size());
 	int current_city = start_point;
 	best_path.push_back(start_point);
@@ -32,6 +33,8 @@ void Greedy::GSolver(int start_point)
 			visited.clear();
 			best_path.push_back(start_point);
 			flag = false;
+			clock_t end = clock();
+			time = (float)(end - begin) / CLOCKS_PER_SEC;
 		}
 
 
@@ -43,7 +46,9 @@ void Greedy::GSolver(int start_point)
 
 void Greedy::printPath()
 {
+	cout << "Best path: ";
 	for (auto city : best_path) {
-		cout << city << "\t";
+		cout << city << " ";
 	}
+	cout << endl;
 }

@@ -71,8 +71,9 @@ void Genetic::randomCrossover()
 void Genetic::randomMutation()
 {
 	vector<vector<int>> mutationGens;
-	double rate = randomRate();
+	
 	for (vector<int> gen : population) {
+		double rate = randomRate();
 		if (rate < MUTATION_RATE) {
 			vector<int> m_gen = gen;
 			int idx1 = rand() % (cities_num - 1) + 1;
@@ -107,9 +108,18 @@ void Genetic::removeDuplicated()
 	
 }
 
-void Genetic::GASolver(int start_point, int desired_cost)
+void Genetic::printPath()
 {
-	
+	cout << "Best path: ";
+	for (auto city : best_path) {
+		cout << city << " ";
+	}
+	cout << endl;
+}
+
+void Genetic::GASolver(int start_point, int desired_cost, bool loop)
+{
+	clock_t begin = clock();
 	srand(getSeed());
 	
 	/* TO-DO
@@ -121,27 +131,39 @@ void Genetic::GASolver(int start_point, int desired_cost)
 		population.push_back(generateRandomPath(start_point));
 	}
 	
-	//Lap the he
-//	for (int gen = 0; gen < NUM_GENERATIONS; gen++) {
+	/*
+	* Lap theo the he hoac lap vo han
+	* Dung khi den dc muc tieu dat ra
+	*/
+	int gen = -1;
 	while (true) {
-		int gen = 0;
+
 		
+		if (!loop) {
+			gen++;
+			//cout << gen << endl;
+		}
+
 		srand(getSeed());
 		//Danh gia
 		sort(population.begin(), population.end(), [this](const auto& a, const auto& b) {
 			return comparePaths(a, b);
 			});
 
-		cout << endl << endl;
-		for (auto gen : population) {
-			cout << calculateCost(gen) << "  ";
-		}
+
+		//Print for debugging
+		//cout << endl << endl;
+		//for (auto gen : population) {
+		//	cout << calculateCost(gen) << "  ";
+		//}
 
 
 		if (calculateCost(population[0]) <= desired_cost || gen == NUM_GENERATIONS-1) {
 			min_cost = calculateCost(population[0]);
 			best_path = population[0];
 			best_path.push_back(start_point);
+			clock_t end = clock();
+			time = (float)(end - begin) / CLOCKS_PER_SEC;
 			break;
 		}
 		//TODO: CHON LOC

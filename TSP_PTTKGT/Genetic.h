@@ -6,12 +6,11 @@ class Genetic :public Matrix
 {
 public:
 	//Note
-	int POPULATION_SIZE = 100;
-	double CROSSOVER_RATE = 1;
-	double MUTATION_RATE = 1;
-	int NUM_GENERATIONS = 100;
+	int POPULATION_SIZE = 200;
+	double CROSSOVER_RATE = 0.2;
+	double MUTATION_RATE = 0.2;
+	int NUM_GENERATIONS = 200;
 
-	int seed = 30041975;
 
 	double min_cost;
 	vector<int> best_path;

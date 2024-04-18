@@ -47,9 +47,9 @@ double Genetic::calculateCost(vector<int> path)
 }
 void Genetic::randomCrossover()
 {
-	for(int i = 0; i < POPULATION_SIZE * CROSSOVER_RATE; i ++) {
-		int parent1Index = rand() % POPULATION_SIZE;
-		int parent2Index = rand() % POPULATION_SIZE;
+	for(int i = 0; i < population.size() * CROSSOVER_RATE; i ++) {
+		int parent1Index = rand() % population.size();
+		int parent2Index = rand() % population.size();
 
 
 		int point1 = rand() % (cities_num - 1) + 1;
@@ -72,7 +72,7 @@ void Genetic::randomMutation()
 {
 	vector<vector<int>> mutationGens;
 	double rate = randomRate();
-	for (vector<int>& gen : population) {
+	for (vector<int> gen : population) {
 		if (rate < MUTATION_RATE) {
 			vector<int> m_gen = gen;
 			int idx1 = rand() % (cities_num - 1) + 1;
@@ -91,16 +91,20 @@ void Genetic::printPopulation()
 
 void Genetic::removeDuplicated()
 {
-	for (size_t i = 0; i < population.size(); ++i) {
-		for (size_t j = i + 1; j < population.size(); ) {
-			if (population[i] == population[j]) {
-				population.erase(population.begin() + j);
-			}
-			else {
-				++j;
-			}
+	set<vector<int>> uniquePaths;
+	for (vector<int> element : population) {
+		if (uniquePaths.find(element) != uniquePaths.end()) {
+			continue;
+		}
+		else {
+			uniquePaths.insert(element);
 		}
 	}
+	population.clear();
+	for (vector<int> element : uniquePaths) {
+		population.push_back(element);
+	}
+	
 }
 
 void Genetic::GASolver(int start_point, int desired_cost)
@@ -118,7 +122,9 @@ void Genetic::GASolver(int start_point, int desired_cost)
 	}
 	
 	//Lap the he
-	for (int gen = 0; gen < NUM_GENERATIONS; gen++) {
+//	for (int gen = 0; gen < NUM_GENERATIONS; gen++) {
+	while (true) {
+		int gen = 0;
 		
 		srand(getSeed());
 		//Danh gia
@@ -126,10 +132,10 @@ void Genetic::GASolver(int start_point, int desired_cost)
 			return comparePaths(a, b);
 			});
 
-		//cout << endl << endl;
-		//for (auto gen : population) {
-		//	cout << calculateCost(gen) << "  ";
-		//}
+		cout << endl << endl;
+		for (auto gen : population) {
+			cout << calculateCost(gen) << "  ";
+		}
 
 
 		if (calculateCost(population[0]) <= desired_cost || gen == NUM_GENERATIONS-1) {
@@ -139,9 +145,10 @@ void Genetic::GASolver(int start_point, int desired_cost)
 			break;
 		}
 		//TODO: CHON LOC
-		//removeDuplicated();
+		
 		if (population.size() > NUM_GENERATIONS) {
 			population.erase(population.begin() + POPULATION_SIZE, population.end());
+			removeDuplicated();
 		}
 		
 
